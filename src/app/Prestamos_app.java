@@ -118,9 +118,9 @@ public class Prestamos_app extends javax.swing.JFrame {
     //Ventana para altas y bajas de cuentas administrador
     private void ventana_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_usuariosActionPerformed
         Usuarios obj = new Usuarios();
-        obj.setVisible(true);
-        obj.setLocationRelativeTo(null);
-        this.dispose();
+        escritorio.add(obj);
+        obj.show();
+
     }//GEN-LAST:event_ventana_usuariosActionPerformed
 
     

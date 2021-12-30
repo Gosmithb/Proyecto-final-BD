@@ -24,7 +24,6 @@ public class Conexion_a_servidor extends javax.swing.JInternalFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            JOptionPane.showMessageDialog(null, "Conexion exitosa");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al conectar" + e);
@@ -63,17 +62,17 @@ public class Conexion_a_servidor extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
                 .addComponent(btn_conectar_servidor)
-                .addGap(34, 34, 34))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(35, 35, 35)
                 .addComponent(btn_conectar_servidor)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,6 +92,7 @@ public class Conexion_a_servidor extends javax.swing.JInternalFrame {
     private void btn_conectar_servidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_conectar_servidorActionPerformed
         try{
             getConection();
+            JOptionPane.showMessageDialog(null, "Conexion exitosa");
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error al conectar" + e);
             
