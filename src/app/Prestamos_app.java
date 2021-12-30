@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,6 +32,7 @@ public class Prestamos_app extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         ventana_conectar = new javax.swing.JMenuItem();
         ventana_login = new javax.swing.JMenuItem();
+        ventana_usuarios = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,6 +68,14 @@ public class Prestamos_app extends javax.swing.JFrame {
         });
         jMenu1.add(ventana_login);
 
+        ventana_usuarios.setText("Usuarios");
+        ventana_usuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ventana_usuariosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ventana_usuarios);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Ayuda");
@@ -91,17 +101,27 @@ public class Prestamos_app extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Ventana para conectar a la base de datos
     private void ventana_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_conectarActionPerformed
-        Conexion_a_servidor verVentana = new Conexion_a_servidor();
-        escritorio.add(verVentana);
-        verVentana.show();
+        Conexion_a_servidor obj = new Conexion_a_servidor();
+        escritorio.add(obj);
+        obj.show();
     }//GEN-LAST:event_ventana_conectarActionPerformed
 
+    //Ventana para acceder con usuario de administrador
     private void ventana_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_loginActionPerformed
-        Login verVentana = new Login();
-        escritorio.add(verVentana);
-        verVentana.show();
+        Login obj = new Login();
+        escritorio.add(obj);
+        obj.show();
     }//GEN-LAST:event_ventana_loginActionPerformed
+
+    //Ventana para altas y bajas de cuentas administrador
+    private void ventana_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_usuariosActionPerformed
+        Usuarios obj = new Usuarios();
+        obj.setVisible(true);
+        obj.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_ventana_usuariosActionPerformed
 
     
 
@@ -144,5 +164,6 @@ public class Prestamos_app extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem ventana_conectar;
     private javax.swing.JMenuItem ventana_login;
+    private javax.swing.JMenuItem ventana_usuarios;
     // End of variables declaration//GEN-END:variables
 }
