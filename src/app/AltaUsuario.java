@@ -110,31 +110,34 @@ public class AltaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_crear_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_usuarioActionPerformed
-        String pass = String.valueOf(txt_telefono.getText());
-        String user = String.valueOf(txt_nombre.getText());
-        int id = generarID();
+
         String SQL = "insert into administrador(id_admin,nombre_admin,telefono_admin) values(?,?,?)";
 
-        try {
-            ps = connect.prepareStatement(SQL);
-            ps.setInt(1, id);
-            ps.setString(2, user);
-            ps.setString(3, pass);
+        if (txt_telefono.getText().isEmpty() || txt_nombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Llene todas las casillas por favor");
+        } else {
+            try {
+                ps = connect.prepareStatement(SQL);
+                ps.setInt(1, generarID());
+                ps.setString(2, txt_nombre.getText());
+                ps.setString(3, txt_telefono.getText());
 
-            int res = ps.executeUpdate();
+                int res = ps.executeUpdate();
 
-            if (res > 0) {
-                imprimirMensajeDeExito(user, pass);
-                limpiarTexto();
-            } else {
-                imprimirMensajeDeFracaso();
-                limpiarTexto();
+                if (res > 0) {
+                    imprimirMensajeDeExito(generarID(),txt_nombre.getText(), txt_telefono.getText());
+                    limpiarTexto();
+                } else {
+                    imprimirMensajeDeFracaso();
+                    limpiarTexto();
+                }
+
+                connect.close();
+
+            } catch (Exception e) {
+                System.err.println(e);
             }
 
-            connect.close();
-
-        } catch (Exception e) {
-            System.err.println(e);
         }
 
 
@@ -187,10 +190,11 @@ public class AltaUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
 
-    private void imprimirMensajeDeExito(String user, String pass) {
+    private void imprimirMensajeDeExito(int _id, String _user, String _pass) {
         JOptionPane.showMessageDialog(null, "Usuario Creado\n"
-                + "Usuario:" + user + "\n"
-                + "Contraseña:" + pass + "\n");
+                + "ID:" + _id + "\n"
+                + "Usuario:" + _user + "\n"
+                + "Contraseña:" + _pass + "\n");
     }
 
     private void imprimirMensajeDeFracaso() {
@@ -199,8 +203,8 @@ public class AltaUsuario extends javax.swing.JFrame {
 
     private int generarID() {
         Random random = new Random();
-        int id = (int)(Math.random()*10+1);
-        
+        int id = (int) (Math.random() * 10 + 1);
+
         return id;
     }
 }

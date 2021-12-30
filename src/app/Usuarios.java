@@ -11,9 +11,8 @@ package app;
  */
 public class Usuarios extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Usuarios
-     */
+    
+    
     public Usuarios() {
         initComponents();
     }
@@ -28,23 +27,28 @@ public class Usuarios extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_ventana_crear_usuario = new javax.swing.JButton();
+        btn_ventana_eliminar_usuario = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Usuarios");
 
-        jButton1.setText("Crear Usuario");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_ventana_crear_usuario.setText("Crear Usuario");
+        btn_ventana_crear_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_ventana_crear_usuarioActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Eliminar Usuario");
+        btn_ventana_eliminar_usuario.setText("Eliminar Usuario");
+        btn_ventana_eliminar_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ventana_eliminar_usuarioActionPerformed(evt);
+            }
+        });
 
-        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btn_ventana_crear_usuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btn_ventana_eliminar_usuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -53,17 +57,17 @@ public class Usuarios extends javax.swing.JInternalFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_ventana_eliminar_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_ventana_crear_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addComponent(jButton1)
+                .addComponent(btn_ventana_crear_usuario)
                 .addGap(35, 35, 35)
-                .addComponent(jButton2)
+                .addComponent(btn_ventana_eliminar_usuario)
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
@@ -81,17 +85,25 @@ public class Usuarios extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_ventana_crear_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ventana_crear_usuarioActionPerformed
         AltaUsuario obj = new AltaUsuario();
         obj.setVisible(true);
         obj.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_ventana_crear_usuarioActionPerformed
 
+    private void btn_ventana_eliminar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ventana_eliminar_usuarioActionPerformed
+        BajaUsuario obj = new BajaUsuario();
+        obj.setVisible(true);
+        obj.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btn_ventana_eliminar_usuarioActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btn_ventana_crear_usuario;
+    private javax.swing.JButton btn_ventana_eliminar_usuario;
     private javax.swing.JDesktopPane jDesktopPane1;
     // End of variables declaration//GEN-END:variables
 }
