@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class AltaUsuario extends javax.swing.JFrame {
 
+    //Conecto con la base de datos
     Conexion_a_servidor enlace = new Conexion_a_servidor();
     Connection connect = enlace.getConection();
     ResultSet rs;
@@ -113,6 +114,7 @@ public class AltaUsuario extends javax.swing.JFrame {
 
         String SQL = "insert into administrador(id_admin,nombre_admin,telefono_admin) values(?,?,?)";
 
+        //Verifico que se llenen todos los campos
         if (txt_telefono.getText().isEmpty() || txt_nombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene todas las casillas por favor");
         } else {
@@ -131,8 +133,7 @@ public class AltaUsuario extends javax.swing.JFrame {
                     imprimirMensajeDeFracaso();
                     limpiarTexto();
                 }
-
-                connect.close();
+                ps=null;
 
             } catch (Exception e) {
                 System.err.println(e);
