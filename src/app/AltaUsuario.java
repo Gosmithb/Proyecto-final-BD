@@ -5,12 +5,14 @@
  */
 package app;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +26,7 @@ public class AltaUsuario extends javax.swing.JFrame {
     Connection connect = enlace.getConection();
     ResultSet rs;
     PreparedStatement ps;
+    BigInteger bi;
 
     public AltaUsuario() {
         initComponents();
@@ -111,7 +114,9 @@ public class AltaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_crear_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_usuarioActionPerformed
-
+        
+        int id = (int)generarID();
+        
         String SQL = "insert into administrador(id_admin,nombre_admin,telefono_admin) values(?,?,?)";
 
         //Verifico que se llenen todos los campos
@@ -120,20 +125,20 @@ public class AltaUsuario extends javax.swing.JFrame {
         } else {
             try {
                 ps = connect.prepareStatement(SQL);
-                ps.setInt(1, generarID());
+                ps.setInt(1, id);
                 ps.setString(2, txt_nombre.getText());
                 ps.setString(3, txt_telefono.getText());
 
                 int res = ps.executeUpdate();
 
                 if (res > 0) {
-                    imprimirMensajeDeExito(generarID(),txt_nombre.getText(), txt_telefono.getText());
+                    imprimirMensajeDeExito(generarID(), txt_nombre.getText(), txt_telefono.getText());
                     limpiarTexto();
                 } else {
                     imprimirMensajeDeFracaso();
                     limpiarTexto();
                 }
-                ps=null;
+                ps = null;
 
             } catch (Exception e) {
                 System.err.println(e);
@@ -191,7 +196,7 @@ public class AltaUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
 
-    private void imprimirMensajeDeExito(int _id, String _user, String _pass) {
+    private void imprimirMensajeDeExito(long _id, String _user, String _pass) {
         JOptionPane.showMessageDialog(null, "Usuario Creado\n"
                 + "ID:" + _id + "\n"
                 + "Usuario:" + _user + "\n"
@@ -202,10 +207,13 @@ public class AltaUsuario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Usuario no creado");
     }
 
-    private int generarID() {
-        Random random = new Random();
-        int id = (int) (Math.random() * 10 + 1);
-
+    //Generar ID de 11 digitos
+    private long generarID() {
+        long min = 10_000_000_000l;
+        long max = 99_999_999_999l;
+        long id = ThreadLocalRandom.current().nextLong(max - min) + min;
         return id;
     }
+
+  
 }
