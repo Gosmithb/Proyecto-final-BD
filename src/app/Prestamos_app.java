@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
  */
 public class Prestamos_app extends javax.swing.JFrame {
 
-    
     public Prestamos_app() {
         initComponents();
     }
@@ -103,27 +102,18 @@ public class Prestamos_app extends javax.swing.JFrame {
 
     //Ventana para conectar a la base de datos
     private void ventana_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_conectarActionPerformed
-        Conexion_a_servidor obj = new Conexion_a_servidor();
-        escritorio.add(obj);
-        obj.show();
+        ventanaConectar();
     }//GEN-LAST:event_ventana_conectarActionPerformed
 
     //Ventana para acceder con usuario de administrador
     private void ventana_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_loginActionPerformed
-        Login obj = new Login();
-        escritorio.add(obj);
-        obj.show();
+        ventanaLogin();
     }//GEN-LAST:event_ventana_loginActionPerformed
 
     //Ventana para altas y bajas de cuentas administrador
     private void ventana_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_usuariosActionPerformed
-        Usuarios obj = new Usuarios();
-        escritorio.add(obj);
-        obj.show();
-
+        ventanaUsuarios();
     }//GEN-LAST:event_ventana_usuariosActionPerformed
-
-    
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -166,4 +156,23 @@ public class Prestamos_app extends javax.swing.JFrame {
     private javax.swing.JMenuItem ventana_login;
     private javax.swing.JMenuItem ventana_usuarios;
     // End of variables declaration//GEN-END:variables
+
+    private void ventanaLogin() {
+        Login obj = new Login();
+        escritorio.add(obj);
+        obj.show();
+    }
+
+    private void ventanaUsuarios() {
+        Usuarios obj = new Usuarios();
+        escritorio.add(obj);
+        obj.show();
+    }
+
+    private void ventanaConectar() {
+        Conexion_a_servidor obj = new Conexion_a_servidor();
+        escritorio.add(obj);
+        obj.show();
+    }
+
 }

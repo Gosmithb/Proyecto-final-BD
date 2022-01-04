@@ -8,6 +8,7 @@ package app;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -60,6 +61,11 @@ public class BajaUsuario extends javax.swing.JFrame {
 
             }
         ));
+        tabla_de_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_de_usuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla_de_usuarios);
 
         btn_eliminar_usuario.setText("Eliminar Usuario");
@@ -109,71 +115,85 @@ public class BajaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_usuarioActionPerformed
-//        String SQL = "delete * from administrador where nombre_admin="+"?"; 
-
-
+        
         if (txt_nombre_usuario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene todas las casillas por favor");
         } else {
             mostrarUsuarios();
-            
-
         }
-
+        
     }//GEN-LAST:event_btn_buscar_usuarioActionPerformed
 
     private void btn_eliminar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_usuarioActionPerformed
-        int res = 0;
-        String SQL = "delete * from administrador where nombre=?";
-        
-        try{
-            ps = connect.prepareStatement(SQL);
-            res = ps.executeUpdate();
-            if (res>0) {
-                JOptionPane.showMessageDialog(null, "Usuario eliminado");
-            }
-            
-            ps=null;
+
+        try {
+            eliminarUsuario();
+            ps = null;
             connect.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar registro");
         }
     }//GEN-LAST:event_btn_eliminar_usuarioActionPerformed
 
-    public void mostrarUsuarios(){
-        DefaultTableModel tabla_usuarios = new DefaultTableModel();
-        //Definir columnas en tabla "tabla_de_usuarios"
-        tabla_usuarios.addColumn("ID");
-        tabla_usuarios.addColumn("Nombre");
-        tabla_usuarios.addColumn("Telefono");
-        tabla_de_usuarios.setModel(tabla_usuarios);
-        
+    private void tabla_de_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_de_usuariosMouseClicked
+//        int fila = tabla_de_usuarios.getSelectedRow();
+//        if (fila == -1) {
+//            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+//        }else {
+//            int id = (Integer)tabla_de_usuarios.getValueAt(fila, 1);
+//        }
+    }//GEN-LAST:event_tabla_de_usuariosMouseClicked
+
+    public void mostrarUsuarios() {
+
+        //Definir columnas en tabla "tablde_usuarios"a_\
+        String[] nombresColumnas = {"ID", "Nombre", "Telefono"};
         String[] datos = new String[3];
-        
-        String SQL = "select * from administrador where nombre_admin=?";
-            
-            try {
-                ps = connect.prepareStatement(SQL);
-                ps.setString(1, txt_nombre_usuario.getText());
-                rs = ps.executeQuery();
+        DefaultTableModel tabla_usuarios = new DefaultTableModel(null, nombresColumnas);
+        tabla_de_usuarios.setModel(tabla_usuarios);
 
-                //Crea columnas en la tabla para mostrar usuarios
-                while (rs.next()) {
-                    datos[0] = rs.getString(1);
-                    datos[1] = rs.getString(2);
-                    datos[2] = rs.getString(3);
-                    tabla_usuarios.addRow(datos);
-                }
-                
-                tabla_de_usuarios.setModel(tabla_usuarios);
+        try {
+            String SQL = "select * from administrador where nombre_admin like ?";
+            ps = connect.prepareStatement(SQL);
+            ps.setString(1, txt_nombre_usuario.getText());
+            rs = ps.executeQuery();
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error en la consulta" + e);
+            //Crea columnas en la tabla para mostrar usuarios
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                tabla_usuarios.addRow(datos);
             }
-        
+
+            tabla_de_usuarios.setModel(tabla_usuarios);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error en la consulta" + e);
+        }
+
     }
-    
-    
+
+    private void eliminarUsuario() {
+        int res = 0;
+        int fila = tabla_de_usuarios.getSelectedRow();
+        try {
+            if (fila < 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila");
+            } else {
+                String SQL = "delete * from administrador where id_admin=?";
+                int id = Integer.parseInt((String) tabla_de_usuarios.getValueAt(fila, 1));
+                ps = connect.prepareStatement(SQL);
+                ps.setInt(1, id);
+                res = ps.executeUpdate();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar usuario" + e.getMessage());
+            System.out.println(e);
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

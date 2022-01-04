@@ -27,6 +27,7 @@ public class AltaUsuario extends javax.swing.JFrame {
     ResultSet rs;
     PreparedStatement ps;
     BigInteger bi;
+    
 
     public AltaUsuario() {
         initComponents();
@@ -114,18 +115,16 @@ public class AltaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_crear_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_usuarioActionPerformed
-        
-        int id = (int)generarID();
-        
-        String SQL = "insert into administrador(id_admin,nombre_admin,telefono_admin) values(?,?,?)";
+
+        String cadenaSQL = "insert into administrador(id_admin,nombre_admin,telefono_admin) values(?,?,?)";
 
         //Verifico que se llenen todos los campos
         if (txt_telefono.getText().isEmpty() || txt_nombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene todas las casillas por favor");
         } else {
             try {
-                ps = connect.prepareStatement(SQL);
-                ps.setInt(1, id);
+                ps = connect.prepareStatement(cadenaSQL);
+                ps.setInt(1, generarID());
                 ps.setString(2, txt_nombre.getText());
                 ps.setString(3, txt_telefono.getText());
 
@@ -149,12 +148,7 @@ public class AltaUsuario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_crear_usuarioActionPerformed
 
-    //Limpiar cajas de texto despues de guardar
-    private void limpiarTexto() {
-        txt_nombre.setText(null);
-        txt_telefono.setText(null);
-    }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -208,11 +202,18 @@ public class AltaUsuario extends javax.swing.JFrame {
     }
 
     //Generar ID de 11 digitos
-    private long generarID() {
+    private int generarID() {
         long min = 10_000_000_000l;
         long max = 99_999_999_999l;
-        long id = ThreadLocalRandom.current().nextLong(max - min) + min;
+        long idL = ThreadLocalRandom.current().nextLong(max - min) + min;
+        int id = (int)idL;
         return id;
+    }
+
+    //Limpiar cajas de texto despues de guardar
+    private void limpiarTexto() {
+        txt_nombre.setText(null);
+        txt_telefono.setText(null);
     }
 
   
