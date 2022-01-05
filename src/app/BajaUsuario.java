@@ -37,6 +37,7 @@ public class BajaUsuario extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_de_usuarios = new javax.swing.JTable();
         btn_eliminar_usuario = new javax.swing.JButton();
+        btn_mostrar_todo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Eliminar Usuario");
@@ -52,6 +53,32 @@ public class BajaUsuario extends javax.swing.JFrame {
 
         tabla_de_usuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
                 {},
                 {},
                 {},
@@ -75,6 +102,13 @@ public class BajaUsuario extends javax.swing.JFrame {
             }
         });
 
+        btn_mostrar_todo.setText("Mostrar Usuarios");
+        btn_mostrar_todo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_mostrar_todoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,6 +124,8 @@ public class BajaUsuario extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_mostrar_todo)
+                        .addGap(18, 18, 18)
                         .addComponent(btn_buscar_usuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_eliminar_usuario)))
@@ -107,7 +143,8 @@ public class BajaUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_eliminar_usuario)
-                    .addComponent(btn_buscar_usuario))
+                    .addComponent(btn_buscar_usuario)
+                    .addComponent(btn_mostrar_todo))
                 .addContainerGap())
         );
 
@@ -115,26 +152,25 @@ public class BajaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_usuarioActionPerformed
-        
+
         if (txt_nombre_usuario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene todas las casillas por favor");
         } else {
-            mostrarUsuarios();
+            mostrarUsuarios("SELECT * FROM administrador WHERE nombre_admin LIKE '%"+txt_nombre_usuario.getText()+"%'");
         }
-        
+
     }//GEN-LAST:event_btn_buscar_usuarioActionPerformed
 
     private void btn_eliminar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_usuarioActionPerformed
 
         try {
             eliminarUsuario();
-            ps = null;
-            connect.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar registro");
         }
     }//GEN-LAST:event_btn_eliminar_usuarioActionPerformed
 
+    //No se como quitar esto
     private void tabla_de_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_de_usuariosMouseClicked
 //        int fila = tabla_de_usuarios.getSelectedRow();
 //        if (fila == -1) {
@@ -144,18 +180,25 @@ public class BajaUsuario extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_tabla_de_usuariosMouseClicked
 
-    public void mostrarUsuarios() {
+    //Pendiente boton mostrar todos los usuarios registrados
+    private void btn_mostrar_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar_todoActionPerformed
+        mostrarUsuarios("SELECT * FROM administrador");
+    }//GEN-LAST:event_btn_mostrar_todoActionPerformed
 
-        //Definir columnas en tabla "tablde_usuarios"a_\
+    public void mostrarUsuarios(String SQL) {
+
+//        String SQL;
+        //Definir columnas en tabla "tabla_de_usuarios"
         String[] nombresColumnas = {"ID", "Nombre", "Telefono"};
         String[] datos = new String[3];
         DefaultTableModel tabla_usuarios = new DefaultTableModel(null, nombresColumnas);
         tabla_de_usuarios.setModel(tabla_usuarios);
 
         try {
-            String SQL = "select * from administrador where nombre_admin like ?";
+
+//            SQL = "SELECT * FROM administrador WHERE nombre_admin LIKE '%"+txt_nombre_usuario.getText()+"%'";
+
             ps = connect.prepareStatement(SQL);
-            ps.setString(1, txt_nombre_usuario.getText());
             rs = ps.executeQuery();
 
             //Crea columnas en la tabla para mostrar usuarios
@@ -175,21 +218,26 @@ public class BajaUsuario extends javax.swing.JFrame {
     }
 
     private void eliminarUsuario() {
-        int res = 0;
         int fila = tabla_de_usuarios.getSelectedRow();
+        int id = Integer.parseInt((String) tabla_de_usuarios.getValueAt(fila, 0));
+        String nombre= (String)tabla_de_usuarios.getValueAt(fila, 1);
+        String telefono = (String)tabla_de_usuarios.getValueAt(fila, 2);
+        
         try {
             if (fila < 0) {
                 JOptionPane.showMessageDialog(null, "Seleccione una fila");
             } else {
-                String SQL = "delete * from administrador where id_admin=?";
-                int id = Integer.parseInt((String) tabla_de_usuarios.getValueAt(fila, 1));
+                String SQL = "DELETE FROM administrador WHERE id_admin = ?";
+                
                 ps = connect.prepareStatement(SQL);
                 ps.setInt(1, id);
-                res = ps.executeUpdate();
+                int res = ps.executeUpdate();
             }
+            
+            mostrarMensajeExito(id,nombre, telefono);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar usuario" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar usuario " + e.getMessage());
             System.out.println(e);
         }
     }
@@ -229,9 +277,17 @@ public class BajaUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar_usuario;
     private javax.swing.JButton btn_eliminar_usuario;
+    private javax.swing.JButton btn_mostrar_todo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla_de_usuarios;
     private javax.swing.JTextField txt_nombre_usuario;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarMensajeExito(int _id, String _nombre, String _telefono) {
+        JOptionPane.showMessageDialog(null, "Usuario Eliminado\n"
+                                            + "ID:" + _id + "\n"
+                                            + "Usuario:" + _nombre + "\n"
+                                            + "Contraseña:" + _telefono + "\n");
+    }
 }

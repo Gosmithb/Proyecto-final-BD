@@ -192,9 +192,9 @@ public class AltaUsuario extends javax.swing.JFrame {
 
     private void imprimirMensajeDeExito(long _id, String _user, String _pass) {
         JOptionPane.showMessageDialog(null, "Usuario Creado\n"
-                + "ID:" + _id + "\n"
-                + "Usuario:" + _user + "\n"
-                + "Contraseña:" + _pass + "\n");
+                                            + "ID:" + _id + "\n"
+                                            + "Usuario:" + _user + "\n"
+                                            + "Contraseña:" + _pass + "\n");
     }
 
     private void imprimirMensajeDeFracaso() {

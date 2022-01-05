@@ -37,6 +37,8 @@
                   <Component id="jScrollPane1" alignment="1" pref="621" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btn_mostrar_todo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btn_buscar_usuario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btn_eliminar_usuario" min="-2" max="-2" attributes="0"/>
@@ -59,6 +61,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btn_eliminar_usuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_buscar_usuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_mostrar_todo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -91,7 +94,7 @@
         <Component class="javax.swing.JTable" name="tabla_de_usuarios">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="0" rowCount="4"/>
+              <Table columnCount="0" rowCount="30"/>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0"/>
@@ -112,6 +115,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_eliminar_usuarioActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_mostrar_todo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mostrar Usuarios"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_mostrar_todoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
