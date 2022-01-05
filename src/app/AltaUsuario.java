@@ -5,25 +5,20 @@
  */
 package app;
 
+import config.Conexion;
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author flaco
- */
 public class AltaUsuario extends javax.swing.JFrame {
 
     //Conecto con la base de datos
-    Conexion_a_servidor enlace = new Conexion_a_servidor();
-    Connection connect = enlace.getConection();
+    Conexion con1 = new Conexion();
+    Connection connect;
+    
     ResultSet rs;
     PreparedStatement ps;
     BigInteger bi;
@@ -123,6 +118,7 @@ public class AltaUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Llene todas las casillas por favor");
         } else {
             try {
+                connect = con1.getConnection();
                 ps = connect.prepareStatement(cadenaSQL);
                 ps.setInt(1, generarID());
                 ps.setString(2, txt_nombre.getText());

@@ -134,8 +134,8 @@ public class BajaUsuario extends javax.swing.JFrame {
 
     private void btn_eliminar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_usuarioActionPerformed
         eliminarUsuario();
-        
-        
+
+
     }//GEN-LAST:event_btn_eliminar_usuarioActionPerformed
 
     //No se como quitar esto
