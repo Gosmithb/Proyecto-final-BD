@@ -5,24 +5,19 @@
  */
 package app;
 
+import config.ConexionAServidor;
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author flaco
- */
+
 public class AltaUsuario extends javax.swing.JFrame {
 
     //Conecto con la base de datos
-    Conexion_a_servidor enlace = new Conexion_a_servidor();
+    ConexionAServidor enlace = new ConexionAServidor();
     Connection connect = enlace.getConection();
     ResultSet rs;
     PreparedStatement ps;

@@ -5,6 +5,7 @@
  */
 package app;
 
+import config.ConexionAServidor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BajaUsuario extends javax.swing.JFrame {
 
-    Conexion_a_servidor enlace = new Conexion_a_servidor();
+    ConexionAServidor enlace = new ConexionAServidor();
     Connection connect = enlace.getConection();
     ResultSet rs;
     PreparedStatement ps;
@@ -134,8 +135,6 @@ public class BajaUsuario extends javax.swing.JFrame {
 
     private void btn_eliminar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_usuarioActionPerformed
         eliminarUsuario();
-        
-        
     }//GEN-LAST:event_btn_eliminar_usuarioActionPerformed
 
     //No se como quitar esto

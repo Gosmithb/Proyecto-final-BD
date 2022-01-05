@@ -5,6 +5,7 @@
  */
 package app;
 
+import config.ConexionAServidor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,7 +30,6 @@ public class Prestamos_app extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        ventana_conectar = new javax.swing.JMenuItem();
         ventana_login = new javax.swing.JMenuItem();
         ventana_usuarios = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -50,14 +50,6 @@ public class Prestamos_app extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Archivo");
-
-        ventana_conectar.setText("Conectar a servidor");
-        ventana_conectar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ventana_conectarActionPerformed(evt);
-            }
-        });
-        jMenu1.add(ventana_conectar);
 
         ventana_login.setText("Login");
         ventana_login.addActionListener(new java.awt.event.ActionListener() {
@@ -99,11 +91,6 @@ public class Prestamos_app extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    //Ventana para conectar a la base de datos
-    private void ventana_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_conectarActionPerformed
-        ventanaConectar();
-    }//GEN-LAST:event_ventana_conectarActionPerformed
 
     //Ventana para acceder con usuario de administrador
     private void ventana_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventana_loginActionPerformed
@@ -152,7 +139,6 @@ public class Prestamos_app extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem ventana_conectar;
     private javax.swing.JMenuItem ventana_login;
     private javax.swing.JMenuItem ventana_usuarios;
     // End of variables declaration//GEN-END:variables
@@ -165,12 +151,6 @@ public class Prestamos_app extends javax.swing.JFrame {
 
     private void ventanaUsuarios() {
         Usuarios obj = new Usuarios();
-        escritorio.add(obj);
-        obj.show();
-    }
-
-    private void ventanaConectar() {
-        Conexion_a_servidor obj = new Conexion_a_servidor();
         escritorio.add(obj);
         obj.show();
     }
