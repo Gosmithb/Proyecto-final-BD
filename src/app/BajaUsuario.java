@@ -53,36 +53,7 @@ public class BajaUsuario extends javax.swing.JFrame {
 
         tabla_de_usuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
 
@@ -138,9 +109,9 @@ public class BajaUsuario extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(14, 14, 14)
                 .addComponent(txt_nombre_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_eliminar_usuario)
                     .addComponent(btn_buscar_usuario)
@@ -156,18 +127,15 @@ public class BajaUsuario extends javax.swing.JFrame {
         if (txt_nombre_usuario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene todas las casillas por favor");
         } else {
-            mostrarUsuarios("SELECT * FROM administrador WHERE nombre_admin LIKE '%"+txt_nombre_usuario.getText()+"%'");
+            mostrarUsuarios("SELECT * FROM administrador WHERE nombre_admin LIKE '%" + txt_nombre_usuario.getText() + "%'");
         }
 
     }//GEN-LAST:event_btn_buscar_usuarioActionPerformed
 
     private void btn_eliminar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_usuarioActionPerformed
-
-        try {
-            eliminarUsuario();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar registro");
-        }
+        eliminarUsuario();
+        
+        
     }//GEN-LAST:event_btn_eliminar_usuarioActionPerformed
 
     //No se como quitar esto
@@ -187,7 +155,6 @@ public class BajaUsuario extends javax.swing.JFrame {
 
     public void mostrarUsuarios(String SQL) {
 
-//        String SQL;
         //Definir columnas en tabla "tabla_de_usuarios"
         String[] nombresColumnas = {"ID", "Nombre", "Telefono"};
         String[] datos = new String[3];
@@ -195,8 +162,6 @@ public class BajaUsuario extends javax.swing.JFrame {
         tabla_de_usuarios.setModel(tabla_usuarios);
 
         try {
-
-//            SQL = "SELECT * FROM administrador WHERE nombre_admin LIKE '%"+txt_nombre_usuario.getText()+"%'";
 
             ps = connect.prepareStatement(SQL);
             rs = ps.executeQuery();
@@ -220,21 +185,21 @@ public class BajaUsuario extends javax.swing.JFrame {
     private void eliminarUsuario() {
         int fila = tabla_de_usuarios.getSelectedRow();
         int id = Integer.parseInt((String) tabla_de_usuarios.getValueAt(fila, 0));
-        String nombre= (String)tabla_de_usuarios.getValueAt(fila, 1);
-        String telefono = (String)tabla_de_usuarios.getValueAt(fila, 2);
-        
+        String nombre = (String) tabla_de_usuarios.getValueAt(fila, 1);
+        String telefono = (String) tabla_de_usuarios.getValueAt(fila, 2);
+
         try {
             if (fila < 0) {
                 JOptionPane.showMessageDialog(null, "Seleccione una fila");
             } else {
                 String SQL = "DELETE FROM administrador WHERE id_admin = ?";
-                
+
                 ps = connect.prepareStatement(SQL);
                 ps.setInt(1, id);
                 int res = ps.executeUpdate();
             }
-            
-            mostrarMensajeExito(id,nombre, telefono);
+
+            mostrarMensajeExito(id, nombre, telefono);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar usuario " + e.getMessage());
@@ -285,9 +250,10 @@ public class BajaUsuario extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void mostrarMensajeExito(int _id, String _nombre, String _telefono) {
-        JOptionPane.showMessageDialog(null, "Usuario Eliminado\n"
-                                            + "ID:" + _id + "\n"
-                                            + "Usuario:" + _nombre + "\n"
-                                            + "Contraseña:" + _telefono + "\n");
+        JOptionPane.showMessageDialog(null,
+                "Usuario Eliminado\n"
+                + "ID:" + _id + "\n"
+                + "Usuario:" + _nombre + "\n"
+                + "Contraseña:" + _telefono + "\n");
     }
 }
